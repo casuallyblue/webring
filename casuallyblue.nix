@@ -19,7 +19,7 @@ let cfg = config.casuallyblue.services.site; in {
       createHome = true;
       description = "site";
       isSystemUser = true;
-      group = "within";
+      group = "users";
       home = "/var/www/casuallyblue.dev";
     };
 
@@ -28,7 +28,7 @@ let cfg = config.casuallyblue.services.site; in {
 
       serviceConfig = {
         User = "cbsite";
-        Group = "within";
+        Group = "users";
         Restart=  "on-failure";
         WorkingDirectory = "/var/www/casuallyblue.dev";
         RestartSec = "30s";

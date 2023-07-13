@@ -3,19 +3,17 @@ use tower_http::services::{ServeDir, ServeFile};
 
 #[tokio::main]
 async fn main() {
-    let static_files = ServeDir::new(".").not_found_service(ServeFile::new("static/404.html"));
+    let static_files = ServeDir::new(".")
+        .not_found_service(ServeFile::new("static/404.html"))
+        .append_index_html_on_directories(true);
 
 
     let app = Router::new()
-        .route(
-            "/",
-            get(|| async { Redirect::permanent("/static/index.html") }),
-        )
+        .nest_service("/", static_files)
         .route(
             "/keys",
             get(|| async { "<p>hi there</p>" })
-        )
-        .nest_service("/static", static_files);
+        );
 
     let port = std::env::args().skip(1).next().unwrap();
 

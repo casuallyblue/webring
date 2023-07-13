@@ -13,8 +13,10 @@ async fn main() {
         )
         .nest_service("/static", static_files);
 
-    // run it with hyper on localhost:3000
-    axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
+    let port = std::env::args().skip(1).next().unwrap();
+
+    let ip_port = format!("0.0.0.0{}", port);
+    axum::Server::bind(&ip_port.parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap();

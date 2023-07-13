@@ -20,7 +20,7 @@ let cfg = config.casuallyblue.services.site; in {
       description = "site";
       isSystemUser = true;
       group = "users";
-      home = "/var/www/casuallyblue.dev";
+      home = "/home/casuallyblue-site";
     };
 
     systemd.services."casuallyblue-dev-site" = {

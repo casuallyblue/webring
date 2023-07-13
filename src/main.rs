@@ -5,6 +5,8 @@ use tower_http::services::{ServeDir, ServeFile};
 async fn main() {
     let static_files = ServeDir::new(".").not_found_service(ServeFile::new("static/404.html"));
 
+    println!("{}", env::current_dir().unwrap().into_os_string().into_string().unwrap());
+
     // build our application with a single route
     let app = Router::new()
         .route(

@@ -38,7 +38,7 @@ let cfg = config.casuallyblue.services.site; in {
       script = let site = self.packages.x86_64-linux.default;
       in ''
         cd ${site}
-        exec ${site}/bin/site ${cfg.port}
+        exec ${site}/bin/site ${builtins.toString cfg.port}
       '';
     };
   };

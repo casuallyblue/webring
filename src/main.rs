@@ -11,6 +11,10 @@ async fn main() {
             "/",
             get(|| async { Redirect::permanent("/static/index.html") }),
         )
+        .route(
+            "/keys",
+            get(|| async { "<p>hi there</p>" })
+        )
         .nest_service("/static", static_files);
 
     let port = std::env::args().skip(1).next().unwrap();

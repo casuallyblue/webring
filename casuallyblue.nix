@@ -35,7 +35,7 @@ let cfg = config.casuallyblue.services.site; in {
         Type = "notify";
       };
 
-      script = let site = self.packages.${system}.default;
+      script = let site = self.packages.x86_64-linux.default;
       in ''
         cd ${site}
         exec ${site}/bin/site

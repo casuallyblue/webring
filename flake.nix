@@ -28,7 +28,7 @@
         inherit (pkgs) lib;
 
         craneLib = crane.lib.${system};
-        src = craneLib.cleanCargoSource (craneLib.path ./.);
+        src = craneLib.path ./.;
 
         # Common arguments can be set here to avoid repeating them later
         commonArgs = {
@@ -63,19 +63,12 @@
         });
       in
       {
-        checks = {
-          inherit my-crate;
-        };
-
         nixosModules = {
           default = import ./casuallyblue.nix self;
         };
 
         packages = {
           default = my-crate;
-          my-crate-llvm-coverage = craneLibLLvmTools.cargoLlvmCov (commonArgs // {
-            inherit cargoArtifacts;
-          });
         };
 
         apps.default = flake-utils.lib.mkApp {
@@ -83,11 +76,6 @@
         };
 
         devShells.default = pkgs.mkShell {
-          inputsFrom = builtins.attrValues self.checks.${system};
-
-          # Additional dev-shell environment variables can be set directly
-          # MY_CUSTOM_DEVELOPMENT_VAR = "something else";
-
           # Extra inputs can be added here
           nativeBuildInputs = with pkgs; [
             cargo

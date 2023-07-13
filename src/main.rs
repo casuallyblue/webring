@@ -15,7 +15,7 @@ async fn main() {
 
     let port = std::env::args().skip(1).next().unwrap();
 
-    let ip_port = format!("0.0.0.0{}", port);
+    let ip_port = format!("0.0.0.0:{}", port);
     axum::Server::bind(&ip_port.parse().unwrap())
         .serve(app.into_make_service())
         .await

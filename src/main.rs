@@ -3,7 +3,7 @@ use tower_http::services::{ServeDir, ServeFile};
 
 #[tokio::main]
 async fn main() {
-    let static_files = ServeDir::new("static").not_found_service(ServeFile::new("static/404.html"));
+    let static_files = ServeDir::new(".").not_found_service(ServeFile::new("static/404.html"));
 
     // build our application with a single route
     let app = Router::new()

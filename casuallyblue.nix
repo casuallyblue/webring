@@ -32,7 +32,7 @@ let cfg = config.casuallyblue.services.site; in {
         Restart=  "on-failure";
         WorkingDirectory = "/var/www/casuallyblue.dev";
         RestartSec = "30s";
-        Type = "notify";
+        Type = "simple";
       };
 
       script = let site = self.packages.x86_64-linux.default;

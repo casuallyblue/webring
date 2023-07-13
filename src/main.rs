@@ -9,8 +9,9 @@ async fn hello_world(_req: Request<Body>) -> Result<Response<Body>, Infallible> 
 
 #[tokio::main]
 async fn main() {
+    let args: Vec<String> = std::env::args().collect();
     // We'll bind to 127.0.0.1:3000
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from(([127, 0, 0, 1], str::parse::<u16>(args.iter().skip(1).next().unwrap()).unwrap()));
 
     // A `Service` is needed for every connection, so this
     // creates one from our `hello_world` function.

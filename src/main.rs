@@ -1,10 +1,12 @@
 use axum::{response::Redirect, routing::get, Router};
 use tower_http::services::{ServeDir, ServeFile};
 
+use maud::html;
+
 #[tokio::main]
 async fn main() {
     let static_files = ServeDir::new(".")
-        .not_found_service(ServeFile::new("static/404.html"))
+        .not_found_service(ServeFile::new("404.html"))
         .append_index_html_on_directories(true);
 
 
@@ -12,7 +14,7 @@ async fn main() {
         .nest_service("/", static_files)
         .route(
             "/keys",
-            get(|| async { "<p>hi there</p>" })
+            get(|| async { html! { p { "hi there"}} })
         );
 
     let port = std::env::args().skip(1).next().unwrap();

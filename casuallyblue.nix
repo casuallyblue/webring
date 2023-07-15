@@ -11,6 +11,18 @@ let cfg = config.casuallyblue.services.site; in {
         example = 9001;
         description = "The http port to listen on";
       };      
+
+      hostname = mkOption {
+        type = types.string;
+        default = "casuallyblue.dev";
+        description = "The hostname to proxy to the server";
+      };
+
+      acmeEmail = mkOption {
+        type = types.string;
+        default = "amylarane@gmail.com";
+        description = "The email to send certbot renewals to";
+      };
     };
   };
 
@@ -22,6 +34,18 @@ let cfg = config.casuallyblue.services.site; in {
       group = "users";
       home = "/home/casuallyblue-site";
     };
+
+    services.nginx.enable = true;
+    services.nginx.virtualHosts."casuallyblue.dev" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
+        proxyWebsockets = true;
+      };
+    };
+    
+    security.acme.certs."${cfg.hostname}".email = cfg.acmeEmail;
 
     systemd.services."casuallyblue-dev-site" = {
       wantedBy = ["multi-user.target"];

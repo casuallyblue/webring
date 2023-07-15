@@ -9,3 +9,7 @@ html {
 .float-center {
   align: center;
 }
+
+.key-container {
+  max-width: 400px;
+}

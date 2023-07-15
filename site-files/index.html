@@ -10,13 +10,13 @@
   <body>
     <h1 class="text-center">Sierra's Home Page</h1>
     <div class="key-container">
-    <p id="keys-loading htmx-indicator">loading...</p>
     <button class="text-center" id="keys" 
       hx-trigger="click"
       hx-get="/keys"
       hx-swap="outerHTML"
       hx-indicator="#keys-loading"
     >Get Keys</button>
+    <p id="keys-loading htmx-indicator">loading...</p>
     </div>
   </body>
 </html>

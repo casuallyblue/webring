@@ -13,13 +13,13 @@ let cfg = config.casuallyblue.services.site; in {
       };      
 
       hostname = mkOption {
-        type = types.string;
+        type = types.str;
         default = "casuallyblue.dev";
         description = "The hostname to proxy to the server";
       };
 
       acmeEmail = mkOption {
-        type = types.string;
+        type = types.str;
         default = "amylarane@gmail.com";
         description = "The email to send certbot renewals to";
       };

@@ -71,7 +71,7 @@
 
         packages = {
           default = my-crate;
-          site-files = lib.stdenv.mkDerivation {
+          site-files = pkgs.stdenv.mkDerivation {
             name = "site-files";
             src = ./site-files;
           };

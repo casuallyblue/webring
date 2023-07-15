@@ -35,6 +35,8 @@
           inherit src;
 
           buildInputs = [
+            pkgs.openssl
+            pkgs.pkg-config
             # Add additional build inputs here
           ] ++ lib.optionals pkgs.stdenv.isDarwin [
             # Additional darwin specific inputs can be set here
@@ -69,6 +71,10 @@
 
         packages = {
           default = my-crate;
+          site-files = lib.stdenv.mkDerivation {
+            name = "site-files";
+            src = ./site-files;
+          };
         };
 
         apps.default = flake-utils.lib.mkApp {

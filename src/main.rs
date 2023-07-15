@@ -14,7 +14,23 @@ async fn main() {
         .nest_service("/", static_files)
         .route(
             "/keys",
-            get(|| async { html! { p { "hi there"}} })
+            get(|| async { 
+                let client = reqwest::Client::new();
+                let key_request = client.get("https://github.com/casually-blue.keys").send().await.unwrap();
+                match key_request.status() {
+                    reqwest::StatusCode::OK => {
+                        return html! {
+                            @for key in key_request.text().await.unwrap().split('\n') {
+                                p { (key) }      
+                            }
+                        };
+                    },
+                    _ => {}
+                }
+                html! { 
+                    p { "no keys found"}
+                } 
+            })
         );
 
     let port = std::env::args().skip(1).next().unwrap();

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/js/htmx.min.js"></script>
+    <script src="/js/hyperscript.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  </head>
+
+  <body>
+    <h1 class="text-center">Sierra's Home Page</h1>
+    <button class="text-center" id="keys" 
+      hx-trigger="click"
+      hx-get="/keys"
+      hx-swap="outerHTML"
+    >Get Keys</button>
+  </body>
+</html>

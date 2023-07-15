@@ -15,6 +15,5 @@ html {
 }
 
 .key-container p {
-  max-width: inherit;
   word-wrap: break-word;
 }

@@ -77,6 +77,7 @@
             buildPhase  = ''
             '';
             installPhase = ''
+              mkdir $out
               cp -ar * $out
             '';
           };

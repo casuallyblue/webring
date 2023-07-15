@@ -74,6 +74,11 @@
           site-files = pkgs.stdenv.mkDerivation {
             name = "site-files";
             src = ./site-files;
+            buildPhase  = ''
+            '';
+            installPhase = ''
+              cp -ar * $out
+            '';
           };
         };
 

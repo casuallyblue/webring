@@ -1,5 +1,14 @@
 html {
   background-color: #f0c4e9;
+  color: #551AAF;
+}
+
+body {
+  margin: 0px;
+}
+
+hr {
+  color: #551AAF;
 }
 
 .navbar {
@@ -15,7 +24,14 @@ html {
 }
 
 .key-container {
-  max-width: 50%;
+  width: 50%;
+  height:200px;
+
+  margin: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border: 2px solid;
 }
 
 .key-container p {

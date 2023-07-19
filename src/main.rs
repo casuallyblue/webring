@@ -1,7 +1,22 @@
 use axum::{response::Redirect, routing::get, Router};
 use tower_http::services::{ServeDir, ServeFile};
 
-use maud::html;
+use maud::{html, Markup};
+use reqwest::StatusCode;
+
+async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error::Error>> {
+    let response = client.get("https://github.com/casually-blue.keys").send().await?;
+    match response.status() {
+        StatusCode::OK => {
+            Ok(html! {
+                @for key in response.text().await?.split('\n') {
+                    p { (key) }
+                }
+            })
+        }
+        _ => Err("Could not get keys".to_string().into())
+    }
+}
 
 #[tokio::main]
 async fn main() {
@@ -16,20 +31,14 @@ async fn main() {
             "/keys",
             get(|| async { 
                 let client = reqwest::Client::new();
-                let key_request = client.get("https://github.com/casually-blue.keys").send().await.unwrap();
-                match key_request.status() {
-                    reqwest::StatusCode::OK => {
-                        return html! {
-                            @for key in key_request.text().await.unwrap().split('\n') {
-                                p { (key) }      
-                            }
-                        };
-                    },
-                    _ => {}
+                match get_keys(&client).await {
+                    Ok(html) => html,
+                    _ => {
+                        html! { 
+                            p { "no keys found"}
+                        } 
+                    }
                 }
-                html! { 
-                    p { "no keys found"}
-                } 
             })
         );
 

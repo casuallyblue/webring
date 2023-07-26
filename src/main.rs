@@ -4,6 +4,10 @@ use tower_http::services::{ServeDir, ServeFile};
 use maud::{html, Markup};
 use reqwest::StatusCode;
 
+mod homepage;
+
+use homepage::*;
+
 async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error::Error>> {
     let response = client.get("https://github.com/casually-blue.keys").send().await?;
     match response.status() {
@@ -20,13 +24,14 @@ async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error
 
 #[tokio::main]
 async fn main() {
-    let static_files = ServeDir::new(".")
-        .not_found_service(ServeFile::new("404.html"))
-        .append_index_html_on_directories(true);
+    let js_dir = ServeDir::new("js");
+    let css_dir = ServeDir::new("css");
 
 
     let app = Router::new()
-        .nest_service("/", static_files)
+        .nest_service("/js", js_dir)
+        .nest_service("/css", css_dir)
+        .route("/", get(|| async {HomePage{}.page()}))
         .route(
             "/keys",
             get(|| async { 
@@ -40,7 +45,8 @@ async fn main() {
                     }
                 }
             })
-        );
+        )
+    ;
 
     let port = std::env::args().skip(1).next().unwrap();
 

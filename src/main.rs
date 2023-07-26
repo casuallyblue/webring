@@ -13,6 +13,7 @@ async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error
     match response.status() {
         StatusCode::OK => {
             Ok(html! {
+                h3 {"SSH Pubkeys"}
                 @for key in response.text().await?.split('\n') {
                     p { (key) }
                 }

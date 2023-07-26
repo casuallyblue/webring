@@ -26,12 +26,12 @@ fn basicPage(head: Markup, body: Markup) -> Markup {
 impl HomePage {
     fn head_contents(&self) -> Markup {
         let js_includes = html! {
-            script src="/js/htmx.min.js" {}
-            script src="/js/hyperscript.min.js" {}
+            script src="/js/htmx.min.js";
+            script src="/js/hyperscript.min.js";
         };
 
         let stylesheets = html! {
-            link rel="stylesheet" type="text/css" href="/css/main.css" {}
+            link rel="stylesheet" type="text/css" href="/css/main.css";
         };
 
         html! {
@@ -56,8 +56,9 @@ impl HomePage {
     fn header(&self) -> Markup {
         html! { header {
             h1 ."text-center" { "Home Page" }
-            hr {}
+            hr;
             (self.navbar())
+            hr;
         }}
     }
 

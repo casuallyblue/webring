@@ -92,6 +92,7 @@ impl HomePage {
 
     fn footer(&self) -> Markup {
         html! { footer {
+                hr {}
                 (self.keys_div())    
         }}
     }

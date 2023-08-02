@@ -17,7 +17,9 @@ fn basicPage(head: Markup, body: Markup) -> Markup {
             }
 
             body {
-                (body)                
+                div .wrapper {
+                    (body)                
+                }
             }
         }
     }
@@ -70,7 +72,8 @@ impl HomePage {
                     hx-get="/keys"
                     hx-swap="outerHTML"
                     hx-indicator="#keys-loading"
-                    { "Get Keys" }
+                    hx-target=".key-container"
+                    { "Show SSH Pubkeys" }
 
                 p #"keys-loading" .htmx-indicator { "loading..." }
             }        
@@ -80,10 +83,17 @@ impl HomePage {
     fn body(&self) -> Markup {
         html! {
             (self.header())
-            (flex_container(vec![
-                self.keys_div()
-            ]))
+            div ."page-body" {
+                p { "Hi, this is my site" }
+            }
+            (self.footer())
         }
+    }
+
+    fn footer(&self) -> Markup {
+        html! { footer {
+                (self.keys_div())    
+        }}
     }
 }
 

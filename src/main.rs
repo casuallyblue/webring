@@ -12,12 +12,12 @@ async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error
     let response = client.get("https://github.com/casually-blue.keys").send().await?;
     match response.status() {
         StatusCode::OK => {
-            Ok(html! {
+            Ok(html! { div ."key-container" ."keys-loaded"  {
                 h3 {"SSH Pubkeys"}
                 @for key in response.text().await?.split('\n') {
                     p { (key) }
                 }
-            })
+            }})
         }
         _ => Err("Could not get keys".to_string().into())
     }

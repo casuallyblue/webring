@@ -7,6 +7,13 @@ body {
   margin: 0px;
 }
 
+html, body {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 hr {
   color: #551AAF;
 }
@@ -25,15 +32,34 @@ hr {
 
 .key-container {
   width: 50%;
-  height:200px;
+  height:100px;
 
   margin: 20px;
   overflow-x: hidden;
   overflow-y: auto;
+}
 
+.key-container.keys-loaded {
   border: 2px solid;
 }
 
 .key-container p {
   word-wrap: break-word;
+}
+
+header, footer {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-body {
+  flex-grow: 1;
+  margin: 10px;
 }

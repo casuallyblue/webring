@@ -24,7 +24,7 @@ fn basicPage(head: Markup, body: Markup) -> Markup {
 }
 
 impl HomePage {
-    fn head_contents(&self) -> Markup {
+    fn head(&self) -> Markup {
         let js_includes = html! {
             script src="/js/htmx.min.js" {}
             script src="/js/hyperscript.min.js" {}
@@ -62,7 +62,7 @@ impl HomePage {
         }}
     }
 
-    fn body(&self) -> Markup {
+    fn keys_div(&self) -> Markup {
         html! {
             div ."key-container" {
                 button ."text-center" #keys 
@@ -73,6 +73,25 @@ impl HomePage {
                     { "Get Keys" }
 
                 p #"keys-loading" .htmx-indicator { "loading..." }
+            }        
+        }
+    }
+
+    fn body(&self) -> Markup {
+        html! {
+            (self.header())
+            (flex_container(vec![
+                self.keys_div()
+            ]))
+        }
+    }
+}
+
+fn flex_container(contents: Vec<Markup>) -> Markup {
+    html! {
+        div style="display: flex" {
+            @for element in contents {
+                (element)
             }
         }
     }
@@ -80,10 +99,9 @@ impl HomePage {
 
 impl Page for HomePage {
     fn page(&self) -> Markup {
-        basicPage(self.head_contents(),
-        html! {
-            (self.header())
-            (self.body())
-        })
+        basicPage(
+            self.head(),
+            self.body()
+        )
     }
 }

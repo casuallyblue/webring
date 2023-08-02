@@ -1,0 +1,5 @@
+run "server" {
+	path "site-files"
+	command "nix"
+	args "run" "..#default" "--" "3333"
+}

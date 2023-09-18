@@ -17,7 +17,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    resume.url = "git+ssh://git.casuallyblue.dev:6611/sierra/resume";
+    resume.url = "git+https://git.casuallyblue.dev/sierra/resume";
   };
 
   outputs = { self, nixpkgs, crane, fenix, flake-utils, resume, ... }:

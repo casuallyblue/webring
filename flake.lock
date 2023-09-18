@@ -152,17 +152,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1695065183,
-        "narHash": "sha256-56NKiiLCv8QBECBLj+P1O9hCKj3VSzTkS2WGa8ADsn0=",
+        "lastModified": 1695066914,
+        "narHash": "sha256-e41pcgBc6IDtXbWDcgbGrexFrasYq+PpZSKTCFIht0w=",
         "ref": "refs/heads/main",
-        "rev": "c29113300b4fea6cef281af484e4a5b69ee9e409",
-        "revCount": 1,
+        "rev": "c8f59948d9d39e64229dd9409df12ea30a223599",
+        "revCount": 2,
         "type": "git",
-        "url": "ssh://git.casuallyblue.dev:6611/sierra/resume"
+        "url": "https://git.casuallyblue.dev/sierra/resume"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git.casuallyblue.dev:6611/sierra/resume"
+        "url": "https://git.casuallyblue.dev/sierra/resume"
       }
     },
     "root": {

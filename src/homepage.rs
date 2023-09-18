@@ -1,14 +1,14 @@
 use maud::{Markup, html, DOCTYPE};
 
 pub trait Page {
-    fn page(&self) -> Markup;
+    fn render(&self) -> Markup;
 }
 
 pub struct HomePage {
     
 }
 
-fn basicPage(head: Markup, body: Markup) -> Markup {
+fn basic_page(head: Markup, body: Markup) -> Markup {
     html! {
         (DOCTYPE)
         html lang="en" {
@@ -50,6 +50,8 @@ impl HomePage {
                     span { a href="/" {"Home"} }
                     (divider)
                     span { a href="https://git.casuallyblue.xyz" {"Git Server"} }
+                    (divider)
+                    span { a href="/static/resume.pdf" {"Resume"}}
                 }
             }
         }
@@ -93,7 +95,8 @@ impl HomePage {
     fn footer(&self) -> Markup {
         html! { footer {
                 hr {}
-                (self.keys_div())    
+                p {"Built with nix/cargo"}
+                p {"Source " a href="https://git.casuallyblue.dev/sierra/nix-flakes/site"{"here"}}
         }}
     }
 }
@@ -109,8 +112,8 @@ fn flex_container(contents: Vec<Markup>) -> Markup {
 }
 
 impl Page for HomePage {
-    fn page(&self) -> Markup {
-        basicPage(
+    fn render(&self) -> Markup {
+        basic_page(
             self.head(),
             self.body()
         )

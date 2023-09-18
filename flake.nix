@@ -16,9 +16,11 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    resume.url = "git+ssh://git.casuallyblue.dev:6611/sierra/resume";
   };
 
-  outputs = { self, nixpkgs, crane, fenix, flake-utils, ... }:
+  outputs = { self, nixpkgs, crane, fenix, flake-utils, resume, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -41,6 +43,7 @@
           ] ++ lib.optionals pkgs.stdenv.isDarwin [
             # Additional darwin specific inputs can be set here
             pkgs.libiconv
+	    pkgs.darwin.Security
           ];
 
           # Additional environment variables can be set directly
@@ -63,6 +66,7 @@
         my-crate = craneLib.buildPackage (commonArgs // {
           inherit cargoArtifacts;
         });
+        resume-pkg = resume.packages.${system}.default;
       in
       {
         nixosModules = {
@@ -78,6 +82,8 @@
             '';
             installPhase = ''
               mkdir $out
+              mkdir $out/static
+              cp -ar ${resume-pkg}/resume.pdf $out/static/resume.pdf
               cp -ar * $out
             '';
           };

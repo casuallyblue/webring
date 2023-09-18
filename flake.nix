@@ -82,9 +82,10 @@
             '';
             installPhase = ''
               mkdir $out
+              cp -ar * $out
+
               mkdir $out/static
               cp -ar ${resume-pkg}/resume.pdf $out/static/resume.pdf
-              cp -ar * $out
             '';
           };
         };

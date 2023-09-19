@@ -5,8 +5,10 @@ use maud::{html, Markup};
 use reqwest::StatusCode;
 
 mod homepage;
+mod page;
 
 use homepage::*;
+use crate::page::Page;
 
 async fn get_keys(client: &reqwest::Client) -> Result<Markup, Box<dyn std::error::Error>> {
     let response = client.get("https://github.com/casually-blue.keys").send().await?;

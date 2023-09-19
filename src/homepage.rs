@@ -1,28 +1,34 @@
-use maud::{Markup, html, DOCTYPE};
-
-pub trait Page {
-    fn render(&self) -> Markup;
-}
+use maud::{html, Markup};
+use crate::page;
+use crate::page::Page;
 
 pub struct HomePage {
     
 }
 
-fn basic_page(head: Markup, body: Markup) -> Markup {
-    html! {
-        (DOCTYPE)
-        html lang="en" {
-            head {
-                (head)
-            }
+fn elements() -> Vec<Markup> {
+    vec![
+  html!{a href="/" {"Home"}},
+  html!{a href="https://git.casuallyblue.dev" {"Git Server"}},
+  html!{a href="/static/resume.pdf" {"Resume"}}
+    ]
+}
 
-            body {
-                div .wrapper {
-                    (body)                
+fn navbar(elements: Vec<Markup>) -> Markup {
+    let divider = html!{span {" | "}};
+    html! {
+            nav .navbar {
+                div .menu {
+                    @if let Some(element) = elements.first() {
+                        span {(element)}
+                    }
+                    @for element in elements.iter().skip(1) {
+                        (divider)
+                        span {(element)}
+                    }
                 }
             }
         }
-    }
 }
 
 impl HomePage {
@@ -42,44 +48,15 @@ impl HomePage {
         }
     }
 
-    fn navbar(&self) -> Markup {
-        let divider = html!{span {" | "}};
-        html! {
-            nav .navbar {
-                div .menu {
-                    span { a href="/" {"Home"} }
-                    (divider)
-                    span { a href="https://git.casuallyblue.xyz" {"Git Server"} }
-                    (divider)
-                    span { a href="/static/resume.pdf" {"Resume"}}
-                }
-            }
-        }
-    }
+
 
     fn header(&self) -> Markup {
         html! { header {
             h1 ."text-center" { "Home Page" }
             hr {}
-            (self.navbar())
+            (navbar(elements()))
             hr {}
         }}
-    }
-
-    fn keys_div(&self) -> Markup {
-        html! {
-            div ."key-container" {
-                button ."text-center" #keys 
-                    hx-trigger="click"
-                    hx-get="/keys"
-                    hx-swap="outerHTML"
-                    hx-indicator="#keys-loading"
-                    hx-target=".key-container"
-                    { "Show SSH Pubkeys" }
-
-                p #"keys-loading" .htmx-indicator { "loading..." }
-            }        
-        }
     }
 
     fn body(&self) -> Markup {
@@ -101,19 +78,9 @@ impl HomePage {
     }
 }
 
-fn flex_container(contents: Vec<Markup>) -> Markup {
-    html! {
-        div style="display: flex" {
-            @for element in contents {
-                (element)
-            }
-        }
-    }
-}
-
 impl Page for HomePage {
     fn render(&self) -> Markup {
-        basic_page(
+        page::basic_page(
             self.head(),
             self.body()
         )

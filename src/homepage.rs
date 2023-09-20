@@ -1,60 +1,29 @@
-use maud::{html, Markup};
-use crate::page;
 use crate::page::Page;
+use crate::page::{self, gen_js_includes, navbar};
+use maud::{html, Markup};
 
-pub struct HomePage {
-    
-}
-
-fn elements() -> Vec<Markup> {
-    vec![
-  html!{a href="/" {"Home"}},
-  html!{a href="https://git.casuallyblue.dev" {"Git Server"}},
-  html!{a href="/static/resume.pdf" {"Resume"}}
-    ]
-}
-
-fn navbar(elements: Vec<Markup>) -> Markup {
-    let divider = html!{span {" | "}};
-    html! {
-            nav .navbar {
-                div .menu {
-                    @if let Some(element) = elements.first() {
-                        span {(element)}
-                    }
-                    @for element in elements.iter().skip(1) {
-                        (divider)
-                        span {(element)}
-                    }
-                }
-            }
-        }
-}
+pub struct HomePage {}
 
 impl HomePage {
     fn head(&self) -> Markup {
-        let js_includes = html! {
-            script src="/js/htmx.min.js" {}
-            script src="/js/hyperscript.min.js" {}
-        };
-
-        let stylesheets = html! {
-            link rel="stylesheet" type="text/css" href="/css/main.css" {}
-        };
-
         html! {
-            (js_includes)  
-            (stylesheets)
+            (gen_js_includes(vec!["/js/htmx.min.js", "/js/hyperscript.min.js"]))
+
+            link rel="stylesheet" type="text/css" href="/css/main.css" {}
         }
     }
 
-
-
     fn header(&self) -> Markup {
+        let navbar = navbar(vec![
+            html! {a href="/" {"Home"}},
+            html! {a href="https://git.casuallyblue.dev" {"Git Server"}},
+            html! {a href="/static/resume.pdf" {"Resume"}},
+        ]);
+
         html! { header {
             h1 ."text-center" { "Home Page" }
             hr {}
-            (navbar(elements()))
+            (navbar)
             hr {}
         }}
     }
@@ -63,7 +32,9 @@ impl HomePage {
         html! {
             (self.header())
             div ."page-body" {
-                p { "Hi, this is my site" }
+                p { "
+                    
+                    " }
             }
             (self.footer())
         }
@@ -80,9 +51,6 @@ impl HomePage {
 
 impl Page for HomePage {
     fn render(&self) -> Markup {
-        page::basic_page(
-            self.head(),
-            self.body()
-        )
+        page::basic_page(self.head(), self.body())
     }
 }

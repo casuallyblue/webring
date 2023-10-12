@@ -11,7 +11,7 @@ use crate::{homepage::*, page::Page};
 
 #[derive(Parser)]
 struct Options {
-    port: u8,
+    port: u16,
 }
 
 #[tokio::main]

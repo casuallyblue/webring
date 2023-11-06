@@ -61,5 +61,6 @@ header, footer {
 
 .page-body {
   flex-grow: 1;
-  margin: 10px;
+  margin: 40px;
+  width: 400px;
 }

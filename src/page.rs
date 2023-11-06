@@ -21,7 +21,7 @@ pub fn basic_page(head: Markup, body: Markup) -> Markup {
     }
 }
 
-fn intersperse(elements: Vec<Markup>, divider: Markup) -> Markup {
+fn intersperse(elements: Vec<impl Render>, divider: impl Render) -> Markup {
     html! {
         @if let Some(element) = elements.first() {
             span {(element)}
@@ -33,7 +33,7 @@ fn intersperse(elements: Vec<Markup>, divider: Markup) -> Markup {
     }
 }
 
-pub fn navbar(elements: Vec<Markup>) -> Markup {
+pub fn navbar(elements: Vec<impl Render>) -> Markup {
     html! {
         nav .navbar {
             div .menu {

@@ -11,8 +11,10 @@ use crate::{homepage::*, page::Page};
 
 #[derive(Parser)]
 struct Options {
-    port: u8,
+    port: u16,
 }
+
+struct SRV {}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {

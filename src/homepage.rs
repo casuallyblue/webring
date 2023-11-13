@@ -71,7 +71,7 @@ impl HomePage {
                 p {"Built with nix/cargo"}
                 p {"Source " a href="https://git.casuallyblue.dev/sierra/nix-flakes/site"{"here"}}
                 div ."buttons-88x31" {
-                    img src="/images/casually-blue.gif" alt="A gradient from purple to blue with a grey border and the username CasuallyBlue written on it" {}
+                    img src="/images/casually-blue.gif" alt="A gradient from purple to blue with a grey border and the username CasuallyBlue written on it";
                 }
         }}
     }

@@ -20,9 +20,10 @@ impl<'a> Render for Link<'a> {
 impl HomePage {
     fn head(&self) -> Markup {
         html! {
+            title { "My Home Page"}
             (gen_js_includes(vec!["/js/htmx.min.js", "/js/hyperscript.min.js"]))
 
-            link rel="stylesheet" type="text/css" href="/css/main.css" {}
+            link rel="stylesheet" type="text/css" href="/css/main.css";
         }
     }
 
@@ -44,9 +45,9 @@ impl HomePage {
 
         html! { header {
             h1 ."text-center" { "Home Page" }
-            hr {}
+            hr;
             (navbar)
-            hr {}
+            hr;
         }}
     }
 
@@ -66,7 +67,7 @@ impl HomePage {
 
     fn footer(&self) -> Markup {
         html! { footer {
-                hr {}
+                hr;
                 p {"Built with nix/cargo"}
                 p {"Source " a href="https://git.casuallyblue.dev/sierra/nix-flakes/site"{"here"}}
                 div ."buttons-88x31" {

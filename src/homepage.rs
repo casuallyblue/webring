@@ -84,35 +84,35 @@ impl HomePage {
                     tr {
                         td {"Matrix"}
                         td {
-                        (social_link("@sierra@synapse.casuallyblue.dev", "https://matrix.to/#/@sierra:synapse.casuallyblue.dev"))
+                        (Self::social_link("@sierra@synapse.casuallyblue.dev", "https://matrix.to/#/@sierra:synapse.casuallyblue.dev"))
                         }
                     }
 
                     tr {
                         td {"Fediverse"}
                         td {
-                            (social_link("@sierra@social.casuallyblue.dev", "https://social.casuallyblue.dev/sierra"))
+                            (Self::social_link("@sierra@social.casuallyblue.dev", "https://social.casuallyblue.dev/sierra"))
                         }
                     }
 
                     tr {
                         td {"Email"}
                         td {
-                            (social_link("sierra@casuallyblue.dev", "mailto:sierra@casuallyblue.dev"))
+                            (Self::social_link("sierra@casuallyblue.dev", "mailto:sierra@casuallyblue.dev"))
                         }
                     }
 
                     tr {
                         td { "Github"}
                         td {
-                            (social_link("casually-blue", "https://github.com/casually-blue"))
+                            (Self::social_link("casually-blue", "https://github.com/casually-blue"))
                         }
                     }
 
                     tr {
                         td {"Gitea"}
                         td {
-                            (social_link("casuallyblue", "https://git.casuallyblue.dev"))
+                            (Self::social_link("casuallyblue", "https://git.casuallyblue.dev"))
                         }
                     }
                 }

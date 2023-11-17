@@ -61,6 +61,46 @@ impl HomePage {
                     I do a lot of low level development stuff as well as working on compilers and other dev tools. 
                     " }
             }
+
+            div ."contact" {
+                h3 {"On Other sites"}
+                table {
+                    tr {
+                        th {"Service"}
+                        th {"Username"}
+                    }
+
+                    tr {
+                        td { "IRC"}
+                        td { "casuallyblue" }
+                    }
+
+                    tr {
+                        td {"Matrix"}
+                        td {"@sierra@synapse.casuallyblue.dev"}
+                    }
+
+                    tr {
+                        td {"Fediverse"}
+                        td {"@sierra@social.casaullyblue.dev"}
+                    }
+
+                    tr {
+                        td {"Email"}
+                        td {"sierra@casuallyblue.dev"}
+                    }
+
+                    tr {
+                        td { "Github"}
+                        td {"https://github.com/casually-blue"}
+                    }
+
+                    tr {
+                        td {"Gitea"}
+                        td {"https://git.casuallyblue.dev"}
+                    }
+                }
+            }
             (self.footer())
         }
     }

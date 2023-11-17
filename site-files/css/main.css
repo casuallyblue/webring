@@ -69,7 +69,7 @@ header, footer {
   text-align: center;
 }
 
-.contact table {
+.contact table,tr,td {
   border: 1px solid black;
 }
 

@@ -51,6 +51,12 @@ impl HomePage {
         }}
     }
 
+    fn social_link(text: &str, uri: &str) -> Markup {
+        html! {
+            a href=(uri) {(text)}
+        }
+    }
+
     fn body(&self) -> Markup {
         html! {
             (self.header())
@@ -77,27 +83,37 @@ impl HomePage {
 
                     tr {
                         td {"Matrix"}
-                        td {"@sierra@synapse.casuallyblue.dev"}
+                        td {
+                        (social_link("@sierra@synapse.casuallyblue.dev", "https://matrix.to/#/@sierra:synapse.casuallyblue.dev"))
+                        }
                     }
 
                     tr {
                         td {"Fediverse"}
-                        td {"@sierra@social.casuallyblue.dev"}
+                        td {
+                            (social_link("@sierra@social.casuallyblue.dev", "https://social.casuallyblue.dev/sierra"))
+                        }
                     }
 
                     tr {
                         td {"Email"}
-                        td {"sierra@casuallyblue.dev"}
+                        td {
+                            (social_link("sierra@casuallyblue.dev", "mailto:sierra@casuallyblue.dev"))
+                        }
                     }
 
                     tr {
                         td { "Github"}
-                        td {"https://github.com/casually-blue"}
+                        td {
+                            (social_link("casually-blue", "https://github.com/casually-blue"))
+                        }
                     }
 
                     tr {
                         td {"Gitea"}
-                        td {"https://git.casuallyblue.dev"}
+                        td {
+                            (social_link("casuallyblue", "https://git.casuallyblue.dev"))
+                        }
                     }
                 }
             }

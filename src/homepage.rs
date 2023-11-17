@@ -91,7 +91,7 @@ impl HomePage {
                     tr {
                         td {"Fediverse"}
                         td {
-                            (Self::social_link("@sierra@social.casuallyblue.dev", "https://social.casuallyblue.dev/sierra"))
+                            (Self::social_link("@sierra@social.casuallyblue.dev", "https://social.casuallyblue.dev/@sierra"))
                         }
                     }
 

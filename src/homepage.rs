@@ -82,7 +82,7 @@ impl HomePage {
 
                     tr {
                         td {"Fediverse"}
-                        td {"@sierra@social.casaullyblue.dev"}
+                        td {"@sierra@social.casuallyblue.dev"}
                     }
 
                     tr {

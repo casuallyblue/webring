@@ -68,3 +68,8 @@ header, footer {
 .buttons-88x31 {
   text-align: center;
 }
+
+.contact table {
+  border: 1px solid black;
+}
+

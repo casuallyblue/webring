@@ -129,7 +129,7 @@ impl HomePage {
                 div ."buttons-88x31" {
                     img src="/images/casually-blue.gif" alt="A gradient from purple to blue with a grey border and the username CasuallyBlue written on it";
                     a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fcasuallyblue.dev" {
-                        img src="/images/html5-validator-badge-blue.png" alt="A button to indicate that the page conforms to the html5 spec";
+                        img style="width:88px; height:31px;" src="/images/html5-validator-badge-blue.png" alt="A button to indicate that the page conforms to the html5 spec";
                     }
                 }
         }}

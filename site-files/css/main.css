@@ -69,6 +69,12 @@ header, footer {
   text-align: center;
 }
 
+.button-88x31 {
+  width: 88px;
+  height: 31px;
+  margin: 5px;
+}
+
 .contact {
   flex-grow: 1;
   margin: 40px;

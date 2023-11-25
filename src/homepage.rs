@@ -57,6 +57,29 @@ impl HomePage {
         }
     }
 
+    fn badge_link<T: AsRef<str>>(img: T, alt: T, link: Option<T>, style: Option<T>) -> Markup {
+       let style: String = if style.is_some() {
+           style.unwrap().as_ref().to_string()
+       } else {
+           "".to_string()
+       };
+        
+        match link {
+            None => {
+                html!{
+                    img style=(style) src=(img.as_ref()) class="button-88x31" alt=(alt.as_ref());
+                }
+            },
+            Some(link) => {
+                html! {
+                    a href=(link.as_ref()) {
+                        img style=(style) src=(img.as_ref()) class="button-88x31" alt=(alt.as_ref());
+                    }
+                }
+            }
+        }
+    }
+
     fn body(&self) -> Markup {
         html! {
             (self.header())
@@ -127,10 +150,11 @@ impl HomePage {
                 p {"Built with nix/cargo"}
                 p {"Source " a href="https://git.casuallyblue.dev/sierra/nix-flakes/site"{"here"}}
                 div ."buttons-88x31" {
-                    img src="/images/casually-blue.gif" alt="A gradient from purple to blue with a grey border and the username CasuallyBlue written on it";
-                    a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fcasuallyblue.dev" {
-                        img style="width:88px; height:31px;" src="/images/html5-validator-badge-blue.png" alt="A button to indicate that the page conforms to the html5 spec";
-                    }
+                    (Self::badge_link("/images/casually-blue.gif", "A gradient from purple to blue with a grey border and the username CasuallyBlue written on it", None, None))
+                    (Self::badge_link("/images/html5-validator-badge-blue.png", "A button to indicate that the page conforms to the html5 spec", Some("https://validator.w3.org/nu/?doc=https://casuallyblue.dev"), None))
+                    (Self::badge_link("/images/vim_powered.gif", "A badge indicating that this site was made with vim", None, None))
+                    (Self::badge_link("/images/linux_powered.gif", "A badge indicating that this site runs on linux", None, None))
+                    (Self::badge_link("/images/nixos.svg", "A badge indicating that this site runs on NixOS", None, Some("background-color: white;")))
                 }
         }}
     }

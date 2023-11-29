@@ -138,6 +138,13 @@ impl HomePage {
                             (Self::social_link("casuallyblue", "https://git.casuallyblue.dev"))
                         }
                     }
+
+                    tr {
+                        td{"Gitlab"}
+                        td {
+                            (Self::social_link("casuallyblue", "https://gitlab.com/casuallyblue"))
+                        }
+                    }
                 }
             }
             (self.footer())

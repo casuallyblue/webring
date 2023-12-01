@@ -155,9 +155,9 @@ impl HomePage {
         html! {
             p {
                 "This website is part of the " 
-                a href="https://casually-blue.github.io/webring/" {"Webring"} ". | "
-                a href="https://casually-blue.github.io/webring/redirect?dir=prev&from=https%3A%2F%2Fcasuallyblue.dev" {"Previous Site"} " | "
-                a href="https://casually-blue.github.io/webring/redirect?from=https%3A%2F%2Fcasuallyblue.dev" {"Next Site"}
+                a href="https://webring.casuallyblue.dev/" {"Webring"} ". | "
+                a href="https://webring.casuallyblue.dev/redirect?dir=prev&from=https%3A%2F%2Fcasuallyblue.dev" {"Previous Site"} " | "
+                a href="https://webring.casuallyblue.dev/redirect?from=https%3A%2F%2Fcasuallyblue.dev" {"Next Site"}
             }
         }
     }

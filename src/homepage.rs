@@ -156,8 +156,8 @@ impl HomePage {
             p {
                 "This website is part of the " 
                 a href="https://webring.casuallyblue.dev/" {"Webring"} ". | "
-                a href="https://webring.casuallyblue.dev/redirect?dir=prev&from=https%3A%2F%2Fcasuallyblue.dev" {"Previous Site"} " | "
-                a href="https://webring.casuallyblue.dev/redirect?from=https%3A%2F%2Fcasuallyblue.dev" {"Next Site"}
+                a href="https://webring.casuallyblue.dev/redirect.html?dir=prev&from=https%3A%2F%2Fcasuallyblue.dev" {"Previous Site"} " | "
+                a href="https://webring.casuallyblue.dev/redirect.html?from=https%3A%2F%2Fcasuallyblue.dev" {"Next Site"}
             }
         }
     }

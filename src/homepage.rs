@@ -151,11 +151,24 @@ impl HomePage {
         }
     }
 
+    fn webring(&self) -> Markup {
+        html! {
+            p {
+                "This website is part of the " 
+                a href="https://casually-blue.github.io/webring/" {"Webring"} ". | "
+                a href="https://casually-blue.github.io/webring/redirect?dir=prev&from=https%3A%2F%2Fcasuallyblue.dev" {"Previous Site"} " | "
+                a href="https://casually-blue.github.io/webring/redirect?from=https%3A%2F%2Fcasuallyblue.dev" {"Next Site"}
+            }
+        }
+    }
+
     fn footer(&self) -> Markup {
         html! { footer {
                 hr;
                 p {"Built with nix/cargo"}
                 p {"Source " a href="https://git.casuallyblue.dev/sierra/nix-flakes/site"{"here"}}
+                (self.webring())
+                
                 div ."buttons-88x31" {
                     (Self::badge_link("/images/casually-blue.gif", "A gradient from purple to blue with a grey border and the username CasuallyBlue written on it", None, None))
                     (Self::badge_link("/images/html5-validator-badge-blue.png", "A button to indicate that the page conforms to the html5 spec", Some("https://validator.w3.org/nu/?doc=https://casuallyblue.dev"), None))

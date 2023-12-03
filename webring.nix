@@ -1,6 +1,6 @@
 self: { config, lib, options, ... }:
 with lib;
-let cfg = config.casuallyblue.services.site; in
+let cfg = config.casuallyblue.services.webring; in
 {
   options = {
     casuallyblue.services.webring = {

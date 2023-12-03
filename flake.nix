@@ -16,6 +16,9 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    runner.url = "git+https://git.casuallyblue.dev/casuallyblue/runner.git";
+    runner.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: with inputs;
@@ -76,6 +79,7 @@
           nativeBuildInputs = with pkgs; [
             cargo
             rustc
+            runner.packages.${system}.default
           ];
         };
       });

@@ -16,11 +16,9 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-
-    resume.url = "git+https://git.casuallyblue.dev/sierra/resume";
   };
 
-  outputs = { self, nixpkgs, crane, fenix, flake-utils, resume, ... }:
+  outputs = inputs: with inputs;
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -39,53 +37,33 @@
           buildInputs = [
             pkgs.openssl
             pkgs.pkg-config
-            # Add additional build inputs here
           ] ++ lib.optionals pkgs.stdenv.isDarwin [
-            # Additional darwin specific inputs can be set here
             pkgs.libiconv
-	    pkgs.darwin.Security
+            pkgs.darwin.Security
           ];
-
-          # Additional environment variables can be set directly
-          # MY_CUSTOM_VAR = "some value";
         };
 
-        craneLibLLvmTools = craneLib.overrideToolchain
-          (fenix.packages.${system}.complete.withComponents [
-            "cargo"
-            "llvm-tools"
-            "rustc"
-          ]);
-
-        # Build *just* the cargo dependencies, so we can reuse
-        # all of that work (e.g. via cachix) when running in CI
         cargoArtifacts = craneLib.buildDepsOnly commonArgs;
 
-        # Build the actual crate itself, reusing the dependency
-        # artifacts from above.
         my-crate = craneLib.buildPackage (commonArgs // {
           inherit cargoArtifacts;
         });
-        resume-pkg = resume.packages.${system}.default;
       in
       {
         nixosModules = {
-          default = import ./casuallyblue.nix self;
+          default = import ./webring.nix self;
         };
 
         packages = {
           default = my-crate;
-          site-files = pkgs.stdenv.mkDerivation {
-            name = "site-files";
-            src = ./site-files;
-            buildPhase  = ''
+          static-files = pkgs.stdenv.mkDerivation {
+            name = "static-files";
+            src = ./static-files;
+            buildPhase = ''
             '';
             installPhase = ''
               mkdir $out
               cp -ar * $out
-
-              mkdir $out/static
-              cp -ar ${resume-pkg}/resume.pdf $out/static/resume.pdf
             '';
           };
         };
@@ -95,7 +73,6 @@
         };
 
         devShells.default = pkgs.mkShell {
-          # Extra inputs can be added here
           nativeBuildInputs = with pkgs; [
             cargo
             rustc

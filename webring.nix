@@ -1,16 +1,19 @@
-self: {config, lib, options, ...}: 
+self: { config, lib, options, ... }:
 with lib;
-let cfg = config.casuallyblue.services.site; in {
+let cfg = config.casuallyblue.services.site; in
+{
   options = {
-    casuallyblue.services.site = {
-      enable = mkEnableOption "casuallyblue.dev server";
+    casuallyblue.services.webring = {
+      enable = mkEnableOption "webring.casuallyblue.dev service";
+
+      enableNginx = mkEnableOption "Nginx Integration";
 
       port = mkOption {
         type = types.port;
-        default = 33241;
+        default = 33242;
         example = 9001;
         description = "The http port to listen on";
-      };      
+      };
 
       hostname = mkOption {
         type = types.str;
@@ -27,16 +30,16 @@ let cfg = config.casuallyblue.services.site; in {
   };
 
   config = mkIf cfg.enable {
-    users.users.cbsite = {
+    users.users.webring = {
       createHome = true;
       description = "site";
       isSystemUser = true;
       group = "users";
-      home = "/home/casuallyblue-site";
+      home = "/var/lib/webring";
     };
 
-    services.nginx.enable = true;
-    services.nginx.virtualHosts."casuallyblue.dev" = {
+    services.nginx.enable = cfg.enableNginx;
+    services.nginx.virtualHosts."${cfg.hostname}" = {
       forceSSL = true;
       enableACME = true;
       locations."/" = {
@@ -44,28 +47,30 @@ let cfg = config.casuallyblue.services.site; in {
         proxyWebsockets = true;
       };
     };
-    
+
     security.acme.certs."${cfg.hostname}".email = cfg.acmeEmail;
 
-    systemd.services."casuallyblue-dev-site" = {
-      wantedBy = ["multi-user.target"];
+    systemd.services."casuallyblue-webring" = {
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        User = "cbsite";
+        User = "webring";
         Group = "users";
-        Restart=  "on-failure";
-        WorkingDirectory = "/var/www/casuallyblue.dev";
+        Restart = "on-failure";
+        WorkingDirectory = cfg.users.users.webring.home;
         RestartSec = "30s";
         Type = "simple";
       };
 
-      script = let 
-        site = self.packages.x86_64-linux.default;
-        site-files = self.packages.x86_64-linux.site-files;
-      in ''
-        cd ${site-files}
-        exec ${site}/bin/site ${builtins.toString cfg.port}
-      '';
+      script =
+        let
+          package = self.packages.x86_64-linux.default;
+          static-files = self.packages.x86_64-linux.static-files;
+        in
+        ''
+          cd ${static-files}
+          exec ${package}/bin/site ${builtins.toString cfg.port}
+        '';
     };
   };
 }

@@ -108,6 +108,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .route("/join", get(|State(state): State<Arc<AppState>>| async {join::JoinPage{state}.render()}))
         .route("/members", get(|State(state): State<Arc<AppState>>| async {members::MembersPage{state}.render()}))
         .route("/redirect", get(redirect))
+        .route("/redirect.html", get(redirect))
 
         .with_state(shared_state);
 

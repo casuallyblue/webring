@@ -12,8 +12,7 @@ pub fn feeds_opml(state: std::sync::Arc<crate::AppState>) -> impl axum::response
         .status(axum::http::StatusCode::OK)
         .header("content-type", "application/xml")
         .body(axum::body::Body::from(
-            format!("
-                <?xml version=\"1.0\" encoding=\"UTF-8\"?>
+            format!("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
                 <opml version=\"1.0\">
                 <head>
                     <title>Webring</title>

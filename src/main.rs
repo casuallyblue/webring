@@ -15,6 +15,7 @@ mod homepage;
 mod join;
 mod members;
 mod page;
+mod feeds;
 
 use crate::{homepage::*, page::Page};
 
@@ -109,6 +110,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .route("/members", get(|State(state): State<Arc<AppState>>| async {members::MembersPage{state}.render()}))
         .route("/redirect", get(redirect))
         .route("/redirect.html", get(redirect))
+        .route("/feeds.opml", get(|State(state): State<Arc<AppState>>| async {feeds::feeds_opml(state)}))
 
         .with_state(shared_state);
 

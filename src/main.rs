@@ -70,7 +70,7 @@ async fn redirect(State(state): State<Arc<AppState>>, Query(redirect_params): Qu
                 }
             },
             "next" => {
-                if index == state.sites.len() {
+                if index == state.sites.len() - 1 {
                     state.sites[0].clone()
                 } else {
                     state.sites[index+1].clone()

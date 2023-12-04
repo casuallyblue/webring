@@ -1,7 +1,7 @@
 
 pub fn feeds_opml(state: std::sync::Arc<crate::AppState>) -> impl axum::response::IntoResponse {
     let sites = state.sites.iter().filter(|site| site.feed.is_some()).map(|site| {
-        format!("<outline text=\"{}\" title=\"{}\" type=\"rss\", xmlUrl=\"{}\", htmlUrl=\"{}\"/>",
+        format!("<outline text=\"{}\" title=\"{}\" type=\"rss\" xmlUrl=\"{}\" htmlUrl=\"{}\"/>",
             site.name,
             site.name,
             site.feed.clone().unwrap(),

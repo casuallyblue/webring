@@ -54,7 +54,7 @@ let cfg = config.casuallyblue.services.webring; in
         User = "webring";
         Group = "users";
         Restart = "on-failure";
-        WorkingDirectory = cfg.users.users.webring.home;
+        WorkingDirectory = config.users.users.webring.home;
         RestartSec = "30s";
         Type = "simple";
       };

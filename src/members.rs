@@ -2,7 +2,7 @@ use crate::page::Page;
 use crate::page::{self, gen_js_includes, navbar};
 use maud::{html, Markup, Render};
 
-pub struct HomePage {
+pub struct MembersPage {
     pub state: std::sync::Arc<crate::AppState>
 }
 
@@ -19,7 +19,7 @@ impl<'a> Render for Link<'a> {
     }
 }
 
-impl Page for HomePage {
+impl Page for MembersPage {
     fn head(&self) -> Markup {
         html! {
             title { "Webring"}

@@ -1,5 +1,5 @@
 run "server" {
 	path "static-files"
 	command "nix"
-	args "run" "..#default" "--" "3333"
+	args "run" "..#default" "--" "3333" "sites.dhall"
 }

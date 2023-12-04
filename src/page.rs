@@ -1,24 +1,34 @@
 use maud::{html, Markup, Render, DOCTYPE};
 
 pub trait Page {
-    fn render(&self) -> Markup;
-}
-
-pub fn basic_page(head: Markup, body: Markup) -> Markup {
+    fn render(&self) -> Markup {
     html! {
         (DOCTYPE)
         html lang="en" {
             head {
-                (head)
+                (self.head())
             }
 
             body {
+                header {
+                    (self.header())
+                }
                 div .wrapper {
-                    (body)
+                    (self.content())
+                }
+                footer  {
+                    (self.footer())
                 }
             }
         }
     }
+    }
+
+    fn head(&self) -> Markup;
+
+    fn header(&self) -> Markup;
+    fn content(&self) -> Markup;
+    fn footer(&self) -> Markup;
 }
 
 fn intersperse(elements: Vec<impl Render>, divider: impl Render) -> Markup {

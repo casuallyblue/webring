@@ -66,7 +66,7 @@ let cfg = config.casuallyblue.services.webring; in
         in
         ''
           cd ${static-files}
-          exec ${package}/bin/webring ${builtins.toString cfg.port}
+          exec ${package}/bin/webring ${builtins.toString cfg.port} /var/lib/webring/sites.dhall
         '';
     };
   };

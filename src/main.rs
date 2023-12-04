@@ -45,12 +45,16 @@ pub struct AppState {
 
 #[derive(Deserialize, Debug)]
 struct Direction {
+    #[serde(alias = "dir")]
     direction: String 
 }
 
-async fn redirect(State(state): State<Arc<AppState>>, Query(origin_site): Query<OriginSite>, Query(direction): Query<Direction>) -> Redirect {
+async fn redirect(State(state): State<Arc<AppState>>, Query(origin_site): Query<OriginSite>, Query(direction): Query<Option<Direction>>) -> Redirect {
     let options = OptionsBuilder::default().build().unwrap();
     let origin_site_normalized_url = normalize_url(origin_site.url.as_str(), &options).unwrap();
+
+    let direction  = direction.unwrap_or(Direction{direction: "next".to_string()});
+
 
     let next_site = if let Some((index, site)) = state.sites.iter().enumerate().find(|(_, site)| {
         let normalized_url = normalize_url(site.url.as_str(), &options);

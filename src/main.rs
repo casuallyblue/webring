@@ -25,9 +25,12 @@ struct Options {
 }
 
 #[derive(Deserialize, Debug)]
-struct OriginSite {
+struct RedirectParams {
     #[serde(rename = "from")]
-    url: String
+    url: String,
+
+    #[serde(alias = "dir")]
+    direction: Option<String>
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -43,18 +46,12 @@ pub struct AppState {
     pub sites: Vec<WebringSite>
 }
 
-#[derive(Deserialize, Debug)]
-struct Direction {
-    #[serde(alias = "dir")]
-    direction: String 
-}
 
-async fn redirect(State(state): State<Arc<AppState>>, Query(origin_site): Query<OriginSite>, Query(direction): Query<Option<Direction>>) -> Redirect {
+async fn redirect(State(state): State<Arc<AppState>>, Query(redirect_params): Query<RedirectParams>) -> Redirect {
     let options = OptionsBuilder::default().build().unwrap();
-    let origin_site_normalized_url = normalize_url(origin_site.url.as_str(), &options).unwrap();
+    let origin_site_normalized_url = normalize_url(redirect_params.url.as_str(), &options).unwrap();
 
-    let direction  = direction.unwrap_or(Direction{direction: "next".to_string()});
-
+    let direction = redirect_params.direction.unwrap_or("next".to_string());
 
     let next_site = if let Some((index, site)) = state.sites.iter().enumerate().find(|(_, site)| {
         let normalized_url = normalize_url(site.url.as_str(), &options);
@@ -64,7 +61,7 @@ async fn redirect(State(state): State<Arc<AppState>>, Query(origin_site): Query<
             false
         }
     }) {
-        match direction.direction.as_str() {
+        match direction.as_str() {
            "prev"  => {
                 if index == 0 {
                     state.sites[state.sites.len() - 1].clone()

@@ -92,7 +92,25 @@ impl Page for HomePage {
             .collect::<Vec<rss::Item>>();
 
         html! {
-            (format!("{:?}", posts))
+            ul {
+            @for post in &posts {
+                li {
+                h3 {(post.title.clone().unwrap_or("Post".to_string())) (post.author.clone().unwrap_or("".to_string()))}
+                p {(PostDescription{ text: post.description.clone().unwrap_or("...".to_string())})}
+                a href=(post.link.clone().unwrap_or("".to_string())) {"See More"}
+                }
+            }
+            }
         }
+    }
+}
+
+pub struct PostDescription {
+    text: String
+}
+
+impl maud::Render for PostDescription {
+    fn render_to(&self, buffer: &mut String) {
+        buffer.push_str(self.text.as_str());
     }
 }

@@ -62,6 +62,16 @@ impl Page for MembersPage {
     }
 
     fn content(&self) -> Markup {
-       html!{} 
+       html!{
+           ul {
+               @for site in &self.state.sites {
+                   li {
+                       a href=(site.url) {
+                           (site.name)
+                       }
+                   }
+               }
+           }
+       } 
     }
 }

@@ -95,7 +95,10 @@ impl Page for HomePage {
             ul {
             @for post in &posts {
                 li ."short-post" {
-                h3 {(post.title.clone().unwrap_or("Post".to_string())) (post.author.clone().unwrap_or("".to_string()))}
+                h3 {(post.title.clone().unwrap_or("Post".to_string())) }
+                h4 {"[ "(post.author.clone().unwrap_or(post.dublin_core_ext.clone().map_or("".to_string(), |dc|{
+                    dc.creators.join(" | ")
+                }))) " ]"}
                 p {(PostDescription{ text: post.description.clone().unwrap_or("...".to_string())})}
                 a href=(post.link.clone().unwrap_or("".to_string())) {"See More"}
                 }

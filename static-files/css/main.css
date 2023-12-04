@@ -23,6 +23,10 @@ li.short-post {
   max-width: 60%;
 }
 
+li.short-post p, h3, h4 {
+  margin: 0;
+}
+
 hr {
   color: #551AAF;
 }

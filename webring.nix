@@ -6,8 +6,6 @@ let cfg = config.casuallyblue.services.webring; in
     casuallyblue.services.webring = {
       enable = mkEnableOption "webring.casuallyblue.dev service";
 
-      enableNginx = mkEnableOption "Nginx Integration";
-
       port = mkOption {
         type = types.port;
         default = 33242;
@@ -38,7 +36,6 @@ let cfg = config.casuallyblue.services.webring; in
       home = "/var/lib/webring";
     };
 
-    services.nginx.enable = cfg.enableNginx;
     services.nginx.virtualHosts."${cfg.hostname}" = {
       forceSSL = true;
       enableACME = true;

@@ -2,26 +2,26 @@ use maud::{html, Markup, Render, DOCTYPE};
 
 pub trait Page {
     fn render(&self) -> Markup {
-    html! {
-        (DOCTYPE)
-        html lang="en" {
-            head {
-                (self.head())
-            }
+        html! {
+            (DOCTYPE)
+            html lang="en" {
+                head {
+                    (self.head())
+                }
 
-            body {
-                header {
-                    (self.header())
-                }
-                div .wrapper {
-                    (self.content())
-                }
-                footer  {
-                    (self.footer())
+                body {
+                    header {
+                        (self.header())
+                    }
+                    div .wrapper {
+                        (self.content())
+                    }
+                    footer  {
+                        (self.footer())
+                    }
                 }
             }
         }
-    }
     }
 
     fn head(&self) -> Markup;

@@ -3,7 +3,7 @@ use crate::page::{self, gen_js_includes, navbar};
 use maud::{html, Markup, Render};
 
 pub struct MembersPage {
-    pub state: std::sync::Arc<crate::AppState>
+    pub state: std::sync::Arc<crate::AppState>,
 }
 
 struct Link<'a> {
@@ -45,7 +45,7 @@ impl Page for MembersPage {
             },
         ]);
 
-        html! { 
+        html! {
             h1 ."text-center" { "Webring" }
             hr;
             (navbar)
@@ -54,24 +54,24 @@ impl Page for MembersPage {
     }
 
     fn footer(&self) -> Markup {
-        html! { 
+        html! {
             hr;
             p {"Built with nix/cargo"}
-            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}      
+            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}
         }
     }
 
     fn content(&self) -> Markup {
-       html!{
-           ul {
-               @for site in &self.state.sites {
-                   li {
-                       a href=(site.url) {
-                           (site.name)
-                       }
-                   }
-               }
-           }
-       } 
+        html! {
+            ul {
+                @for site in &self.state.sites {
+                    li {
+                        a href=(site.url) {
+                            (site.name)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

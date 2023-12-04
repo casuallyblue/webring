@@ -79,6 +79,7 @@
           nativeBuildInputs = with pkgs; [
             cargo
             rustc
+            rustfmt
             runner.packages.${system}.default
           ];
         };

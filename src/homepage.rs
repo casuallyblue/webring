@@ -3,7 +3,7 @@ use crate::page::{self, gen_js_includes, navbar};
 use maud::{html, Markup, Render};
 
 pub struct HomePage {
-    pub state: std::sync::Arc<crate::AppState>
+    pub state: std::sync::Arc<crate::AppState>,
 }
 
 struct Link<'a> {
@@ -18,6 +18,8 @@ impl<'a> Render for Link<'a> {
         }
     }
 }
+
+type VecVec<T> = Vec<Vec<T>>;
 
 impl Page for HomePage {
     fn head(&self) -> Markup {
@@ -45,7 +47,7 @@ impl Page for HomePage {
             },
         ]);
 
-        html! { 
+        html! {
             h1 ."text-center" { "Webring" }
             hr;
             (navbar)
@@ -54,14 +56,43 @@ impl Page for HomePage {
     }
 
     fn footer(&self) -> Markup {
-        html! { 
+        html! {
             hr;
             p {"Built with nix/cargo"}
-            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}      
+            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}
         }
     }
 
     fn content(&self) -> Markup {
-       html!{} 
+        let posts = self
+            .state
+            .sites
+            .iter()
+            .filter(|site| site.feed.is_some())
+            .map(|site| {
+                let feed_url = site.feed.clone().unwrap();
+                let Ok(content) = reqwest::blocking::get(feed_url.as_str()) else {
+                return None;
+            };
+
+                let Ok(content) = content.bytes() else {
+                return None;
+            };
+
+                let Ok(channel) = rss::Channel::read_from(&content[..]) else {
+                return None;
+            };
+
+                Some(channel)
+            })
+            .filter(|channel| channel.is_some())
+            .map(|channel| channel.unwrap())
+            .map(|feed| feed.items.clone())
+            .flatten()
+            .collect::<Vec<rss::Item>>();
+
+        html! {
+            (format!("{:?}", posts))
+        }
     }
 }

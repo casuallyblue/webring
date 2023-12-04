@@ -3,7 +3,7 @@ use crate::page::{self, gen_js_includes, navbar};
 use maud::{html, Markup, Render};
 
 pub struct JoinPage {
-    pub state: std::sync::Arc<crate::AppState>
+    pub state: std::sync::Arc<crate::AppState>,
 }
 
 struct Link<'a> {
@@ -45,7 +45,7 @@ impl Page for JoinPage {
             },
         ]);
 
-        html! { 
+        html! {
             h1 ."text-center" { "Webring" }
             hr;
             (navbar)
@@ -54,14 +54,14 @@ impl Page for JoinPage {
     }
 
     fn footer(&self) -> Markup {
-        html! { 
+        html! {
             hr;
             p {"Built with nix/cargo"}
-            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}      
+            p {"Source " a href="https://git.casuallyblue.dev/flakes/webring"{"here"}}
         }
     }
 
     fn content(&self) -> Markup {
-       html!{} 
+        html! {}
     }
 }

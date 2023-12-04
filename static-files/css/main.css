@@ -17,7 +17,7 @@ html, body {
   margin: 0;
 }
 
-li .short-post {
+li.short-post {
   border: solid;
   padding: 5px;
   max-width: 60%;

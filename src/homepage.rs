@@ -94,7 +94,7 @@ impl Page for HomePage {
         html! {
             ul {
             @for post in &posts {
-                li {
+                li ."short-post" {
                 h3 {(post.title.clone().unwrap_or("Post".to_string())) (post.author.clone().unwrap_or("".to_string()))}
                 p {(PostDescription{ text: post.description.clone().unwrap_or("...".to_string())})}
                 a href=(post.link.clone().unwrap_or("".to_string())) {"See More"}

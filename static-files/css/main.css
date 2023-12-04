@@ -17,6 +17,12 @@ html, body {
   margin: 0;
 }
 
+li .short-post {
+  border: solid;
+  padding: 5px;
+  max-width: 60%;
+}
+
 hr {
   color: #551AAF;
 }

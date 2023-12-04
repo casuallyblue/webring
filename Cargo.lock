@@ -1615,7 +1615,6 @@ dependencies = [
  "mime",
  "never",
  "quick-xml",
- "serde",
  "url",
 ]
 
@@ -2023,6 +2022,7 @@ dependencies = [
  "pin-project-lite",
  "tokio",
  "tokio-util",
+ "tower",
  "tower-layer",
  "tower-service",
  "tracing",
@@ -2276,6 +2276,7 @@ dependencies = [
  "serde_json",
  "tokio",
  "tower-http",
+ "tower-layer",
 ]
 
 [[package]]

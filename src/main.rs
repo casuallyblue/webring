@@ -13,7 +13,12 @@ use std::sync::Arc;
 
 use serde::Deserialize;
 
+use tower_layer::Layer;
+
 use normalize_url_rs::{normalize_url, OptionsBuilder};
+
+use axum::ServiceExt;
+use tower_http::normalize_path::NormalizePathLayer;
 
 mod feeds;
 mod homepage;
@@ -132,7 +137,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let ip_port = format!("0.0.0.0:{}", options.port);
     axum::Server::bind(&ip_port.parse()?)
-        .serve(app.into_make_service())
+        .serve(NormalizePathLayer::trim_trailing_slash().layer(app).into_make_service())
         .await
         .unwrap();
 
